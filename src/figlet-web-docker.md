@@ -49,7 +49,7 @@
     $ docker run -p 8000:8000 figlet-web
     ```
  - Try again by visiting `http://HOSTNAME_IN_CHIT.i10e.xyz:8000`
- - How to remove that ugly :8000 at the end?
+ - How to remove that ugly :8000 at the end? For that, we have to tell caddy to do its magic
  - Update the Caddyfile, `/etc/caddy/Caddyfile` so it knows where out docker python app is.
     ```
     figlet-web.HOSTNAME_IN_CHIT.i10e.xyz {
