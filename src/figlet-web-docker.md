@@ -32,13 +32,14 @@
     ```
     $ docker run figlet-web
     ```
-    > use `docker run ... -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker to detach from the terminal and run in the background once the container has started. 
  - Now the app should be running and should be accessible from the browser. goto `http://HOSTNAME_IN_CHIT.i10e.xyz:8080` to see it.
  - Not seeing anything? We need to ask docker to let us see what's on port 8080
+ - use `Ctrl+C` to stop your the running container
     > `-p <host port>:<container port>` flag for the `docker run ...` command gives access to the `<container port>` from `<host port>` on the host.
     ```
     $ docker run -p 8080:8080 figlet-web
     ```
+    > use `docker run ... -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker to detach from the terminal and run in the background once the container has started. 
  - Try again by visiting `http://HOSTNAME_IN_CHIT.i10e.xyz:8080`
  - How to remove that ugly :8080 at the end? For that, we have to tell caddy to do its magic
  - Update the Caddyfile, `/etc/caddy/Caddyfile` so it knows where out docker python app is.
