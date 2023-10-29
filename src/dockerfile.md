@@ -19,23 +19,6 @@ A Dockerfile is a file containing all the instructions needed to build an `image
     ```sh
     docker build . -t if3-hello-world
     ```
-    ```
-    Sending build context to Docker daemon  5.632kB            
-    Step 1/4 : FROM debian:12                                  
-     ---> 676aedd4776f                                         
-    Step 2/4 : RUN apt update                                  
-     ---> Using cache                                          
-     ---> d5d4d36443b4                                         
-    Step 3/4 : RUN apt install figlet -y                       
-     ---> Using cache                                          
-     ---> 8f6773f5c1b8                                         
-    Step 4/4 : ENTRYPOINT "figlet", "Hello, World!"               
-     ---> Running in c6c1ac905894                              
-    Removing intermediate container c6c1ac905894               
-     ---> dcc0c73adb27                                         
-    Successfully built dcc0c73adb27                            
-    Successfully tagged if3-hello-world:latest
-    ```
 
  - All available images can be seen using `docker image ls`
     ```
