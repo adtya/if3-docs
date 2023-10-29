@@ -17,7 +17,7 @@
     RUN apt install figlet -y
     COPY . .
     RUN pip install -r requirements.txt
-    CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "webapp:app" ]
+    CMD [ "gunicorn", "--bind", "0.0.0.0:8080", "webapp:app" ]
     ```
  - Building the image
     ```
@@ -33,18 +33,18 @@
     $ docker run figlet-web
     ```
  - Now the app should be running and should be accessible from the browser. goto `http://HOSTNAME_IN_CHIT.i10e.xyz:8080` to see it.
- - Not seeing anything? We need to tell docker that we are need to see what's on port 8000
+ - Not seeing anything? We need to ask docker to  let us see what's on port 8080
     > `-p <host port>:<container port>` flag for the `docker run ...` command gives access to the `<container port>` from `<host port>` on the host.
     ```
-    $ docker run -p 8080:8000 figlet-web
+    $ docker run -p 8080:8080 figlet-web
     ```
  - Try again by visiting `http://HOSTNAME_IN_CHIT.i10e.xyz:8080`
  - How to remove that ugly :8000 at the end? For that, we have to tell caddy to do its magic
  - Update the Caddyfile, `/etc/caddy/Caddyfile` so it knows where out docker python app is.
-    ```
-    figlet-web.HOSTNAME_IN_CHIT.i10e.xyz {
-      reverse_proxy :8080
-    }
+    ```diff
+    +figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz {
+    +  reverse_proxy :8080
+    +}
     ```
     and reload Caddy with `sudo systemctl reload caddy.service`
- - Enjoy your app at `https://figlet-web.HOSTNAME_IN_CHIT.i10e.xyz`
+ - Enjoy your app at `https://figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz`
