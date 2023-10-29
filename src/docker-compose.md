@@ -28,7 +28,7 @@ What is Docker compose?
       image: figlet-web:latest
       build: .
       ports:
-       - 8080:8000
+       - 8081:8080
     ```
  - Build the image using docker-compose
     ```
@@ -38,7 +38,18 @@ What is Docker compose?
     ```
     $ docker-compose up
     ```
-    > use `docker-compose up -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker compose to detach from the terminal and run in the background once the app has started. 
+    > use `docker-compose up -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker compose to detach from the terminal and run in the background once the app has started.
+ - Now the app should be running and should be accessible from the browser. goto `http://HOSTNAME_IN_CHIT.i10e.xyz:8081` to see it.
+ - Again, we need to remove the :8081 at the end.
+ - Update the Caddyfile, `/etc/caddy/Caddyfile` so it knows we want to see the new docker compose app instead.
+    ```diff
+    figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz {
+    -  reverse_proxy :8080
+    +  reverse_proxy :8081
+    }
+    ```
+    and reload Caddy with `sudo systemctl reload caddy.service`
+ - Enjoy your app at `https://figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz`
  - Stopping the container
     ```
     $ docker-compose down

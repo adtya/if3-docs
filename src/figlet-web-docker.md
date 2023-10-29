@@ -32,14 +32,15 @@
     ```
     $ docker run figlet-web
     ```
+    > use `docker run ... -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker to detach from the terminal and run in the background once the container has started. 
  - Now the app should be running and should be accessible from the browser. goto `http://HOSTNAME_IN_CHIT.i10e.xyz:8080` to see it.
- - Not seeing anything? We need to ask docker to  let us see what's on port 8080
+ - Not seeing anything? We need to ask docker to let us see what's on port 8080
     > `-p <host port>:<container port>` flag for the `docker run ...` command gives access to the `<container port>` from `<host port>` on the host.
     ```
     $ docker run -p 8080:8080 figlet-web
     ```
  - Try again by visiting `http://HOSTNAME_IN_CHIT.i10e.xyz:8080`
- - How to remove that ugly :8000 at the end? For that, we have to tell caddy to do its magic
+ - How to remove that ugly :8080 at the end? For that, we have to tell caddy to do its magic
  - Update the Caddyfile, `/etc/caddy/Caddyfile` so it knows where out docker python app is.
     ```diff
     +figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz {
@@ -48,3 +49,13 @@
     ```
     and reload Caddy with `sudo systemctl reload caddy.service`
  - Enjoy your app at `https://figlet-web-docker.HOSTNAME_IN_CHIT.i10e.xyz`
+ - How to see all my running containers? what if I want to stop one of them?
+    ```
+    $ docker ps
+    ```
+ - To stop any of them, we need the container id show by `docker ps`
+    ```
+    $ docker stop <container id>
+    ```
+    > If you're too lazy to look for and remember the gibberish id everytime, use `docker run ... --name "cool_name"` when starting the container. Now you can use `cool_name` instead of the id. Yay!
+
