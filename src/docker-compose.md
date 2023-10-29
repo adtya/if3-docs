@@ -36,5 +36,10 @@ What is Docker compose?
     ```
  - Start the container
     ```
-    $ docker compose up
+    $ docker-compose up
+    ```
+    > use `docker-compose up -d` if you want to continue using the terminal, or don't want the app to stop if you press `Ctr+C`. `-d` stands for detach. it tells docker compose to detach from the terminal and run in the background once the app has started. 
+ - Stopping the container
+    ```
+    $ docker-compose down
     ```
