@@ -1,12 +1,10 @@
-{
-  stdenvNoCC,
-  mdbook,
-}:
+{ stdenvNoCC, mdbook }:
+
 stdenvNoCC.mkDerivation {
   pname = "if3";
-  version = "latest";
+  version = "2023-11-05";
   src = ./.;
-  buildInputs = [mdbook];
+  buildInputs = [ mdbook ];
   buildPhase = ''
     mdbook build
   '';
