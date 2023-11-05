@@ -2,6 +2,7 @@
 
 A Dockerfile is a file containing all the instructions needed to build an `image`
 
+### A simple Dockerfile
  - Create a file with the name `Dockerfile`
     ```sh
     nano Dockerfile
@@ -30,10 +31,25 @@ A Dockerfile is a file containing all the instructions needed to build an `image
 
  - A `container` can be created and started with `docker run ...`
     ```
-    docker run if3-hello-world
-    ```
-    ```
     $ docker run if3-hello-world
+    Hello, World!
+    ```
+### Simple, but in style - another Dockerfile
+ - Edit the Dockerfile like below
+    ```diff
+    FROM debian:12
+    -ENTRYPOINT "echo" "Hello, World!"
+    +RUN apt-get update
+    +RUN apt-get install figlet -y
+    +ENTRYPOINT "figlet" "Hello, World!"
+    ```
+ - Save the file and build a new image. Let's call the new image `if3-hello-world-figlet`
+    ```sh
+    docker build . -t if3-hello-world-figlet
+    ```
+ - Start a container with the new image
+    ```
+    $ docker run if3-hello-world-figlet
      _   _      _ _         __        __         _     _ _ 
     | | | | ___| | | ___    \ \      / /__  _ __| | __| | |
     | |_| |/ _ \ | |/ _ \    \ \ /\ / / _ \| '__| |/ _` | |
