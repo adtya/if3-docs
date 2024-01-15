@@ -1,0 +1,7 @@
+.direnv/
+.git/
+.github/
+book/
+result
+update-version.sh
+Dockerfile
