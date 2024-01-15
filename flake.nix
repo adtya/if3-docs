@@ -2,27 +2,36 @@
   description = "if3.adtya.xyz";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { self, nixpkgs, flake-utils }:
+    { self
+    , nixpkgs
+    , flake-utils
+    ,
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
           inherit system;
         };
+        package = pkgs.callPackage ./default.nix { };
+        app = pkgs.writeShellScriptBin "app" "${pkgs.merecat}/bin/merecat -n -p 8080 ${package}/share/web";
       in
-      with pkgs; {
-        formatter = nixpkgs-fmt;
-        devShells.default = mkShell {
-          buildInputs = [
+      {
+        formatter = pkgs.nixpkgs-fmt;
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
             mdbook
           ];
         };
-        packages.default = callPackage ./default.nix { };
+        packages = {
+          inherit app;
+          default = package;
+        };
       }
     );
 }
